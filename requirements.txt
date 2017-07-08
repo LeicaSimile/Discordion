@@ -1,0 +1,2 @@
+discord==0.16.8
+git+https://github.com/Tumthe3/Pyliner.git#egg=pyliner
