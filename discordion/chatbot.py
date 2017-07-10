@@ -1,28 +1,45 @@
 # -*- coding: utf-8 -*-
+import configparser
+import logging
+
 import discord
 import pyliner
 import sqlitereader
-
-import logging
-import logging.config
 
 from context import GeneralContext
 import commands
 import settings
 
-logging.config.fileConfig("logging.ini")
-logger = logging.getLogger("bot")
+logger = logging.getLogger(__name__)
 
 
 class Bot(object):
     """
+    Args:
+        bot (discord.Bot): The bot instance.
+
+    Kwargs:
+        db_file (str): Filepath of the database file.
+        bot_id (str): Bot's client ID.
+        owner_id (str): Owner's ID.
+        secret (str): Bot's client secret.
+        token (str): Bot's token.
+        prefix (str): The command prefix.
+        status (str): The bot's "Playing" status message.
+        placeholder_bot_display (str): Placeholder for bot's display name.
+        placeholder_bot (str): Placeholder for bot's username.
+        placeholder_channel (str): Placeholder for current channel's name.
+        placeholder_emote (str): Placeholder for "/me".
+        placeholder_mention (str): Placeholder for user mention.
+        placeholder_server (str): Placeholder for current server's name.
+        placeholder_user (str): Placeholder for the user's name.
+        
     Attributes:
-        bot(discord.Bot): The bot instance.
-        db_file(str): File path of the bot's database. Used to create 'db',
-            a Database instance.
+        db (BotDatabase): The bot's database.
+        
     """
     
-    def __init__(self, bot, db_file):
+    def __init__(self, bot, **kwargs):
         self.client = bot
         self.db = sqlitereader.Database(db_file)
 
@@ -30,6 +47,9 @@ class Bot(object):
         self.set_events()
         self.set_commands()
         self.client.run(token)
+
+    def set_settings(**kwargs):
+        pass
 
     def event_member_join(self):
         async def on_member_join(member):

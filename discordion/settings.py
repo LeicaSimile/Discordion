@@ -1,21 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Sample settings file. Customize values to your needs."""
-import configparser
-
+"""Settings used for the bot. Values are set in chatbot.Bot"""
 
 """Files"""
 FILE_DATABASE = ""
-FILE_CONFIG = "config.ini"
 
-config = configparser.SafeConfigParser()
-config.read(FILE_CONFIG)
-
-
-"""Settings from config file"""
-BOT_ID = config.get("info", "id")
-OWNER_ID = config.get("info", "owner-id")
-SECRET = config.get("info", "secret")
-TOKEN = config.get("info", "token")
+"""Private settings"""
+BOT_ID = ""
+OWNER_ID = ""
+SECRET = ""
+TOKEN = ""
 
 """Other bot settings"""
 BOT_PREFIX = "!"
