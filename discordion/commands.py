@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+import random
+
 import discord
 from discord.ext import commands
-import random
 
 from context import GeneralContext
 import database
 import settings
-import phrases
 
 
 class General(object):
