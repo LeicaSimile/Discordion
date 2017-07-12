@@ -45,7 +45,8 @@ class Bot(object):
     
     def __init__(self, bot, **kwargs):
         self.client = bot
-        self.db = sqlitereader.Database(db_file)
+        self.set_settings(**kwargs)
+        self.db = sqlitereader.Database(settings.FILE_DATABASE)
 
     def run(self, token):
         self.set_events()
@@ -53,7 +54,24 @@ class Bot(object):
         self.client.run(token)
 
     def set_settings(**kwargs):
-        pass
+        ## Mandatory arguments
+        settings.FILE_DATABASE = kwargs["db_file"]
+        settings.BOT_ID = kwargs["bot_id"]
+        settings.OWNER_ID = kwargs["owner_id"]
+        settings.TOKEN = kwargs["token"]
+
+        ## Optional arguments
+        settings.BOT_PREFIX = kwargs.get("prefix", "!")
+        settings.BOT_STATUS = kwargs.get("status", f"{settings.BOT_PREFIX}help")
+        settings.BOT_DISPLAY_NAME = kwargs.get("placeholder_bot_display",
+                                               "%botnick%")
+        settings.BOT_NAME = kwargs.get("placeholder_bot", "%bot%")
+        settings.CHANNEL_NAME = kwargs.get("placeholder_channel", "%channel%")
+        settings.DISPLAY_NAME = kwargs.get("placeholder_display", "%display%")
+        settings.EMOTE = kwargs.get("placeholder_emote", "%ACT")
+        settings.MENTION = kwargs.get("placeholder_mention", "%mention%")
+        settings.SERVER_NAME = kwargs.get("placeholder_server", "%server%")
+        settings.USER_NAME = kwargs.get("placeholder_user", "%name%")
 
     def event_member_join(self):
         async def on_member_join(member):
