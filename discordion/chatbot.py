@@ -22,17 +22,21 @@ class Bot(object):
         db_file (str): Filepath of the database file.
         bot_id (str): Bot's client ID.
         owner_id (str): Owner's ID.
-        secret (str): Bot's client secret.
         token (str): Bot's token.
-        prefix (str): The command prefix.
-        status (str): The bot's "Playing" status message.
-        placeholder_bot_display (str): Placeholder for bot's display name.
-        placeholder_bot (str): Placeholder for bot's username.
-        placeholder_channel (str): Placeholder for current channel's name.
-        placeholder_emote (str): Placeholder for "/me".
-        placeholder_mention (str): Placeholder for user mention.
-        placeholder_server (str): Placeholder for current server's name.
-        placeholder_user (str): Placeholder for the user's name.
+        secret (str, optional): Bot's client secret.
+        prefix (str, optional): The command prefix.
+        status (str, optional): The bot's "Playing" status message.
+        placeholder_bot_display (str, optional): Placeholder for bot's
+            display name.
+        placeholder_bot (str, optional): Placeholder for bot's username.
+        placeholder_channel (str, optional): Placeholder for current
+            channel's name.
+        placeholder_display (str, optional): Placeholder for user's display name.
+        placeholder_emote (str, optional): Placeholder for "/me".
+        placeholder_mention (str, optional): Placeholder for user mention.
+        placeholder_server (str, optional): Placeholder for current
+            server's name.
+        placeholder_user (str, optional): Placeholder for the user's name.
         
     Attributes:
         db (BotDatabase): The bot's database.
