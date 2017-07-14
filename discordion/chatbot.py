@@ -158,10 +158,17 @@ class Bot(object):
         message = self.parse(message, context)
         await self.client.send_message(destination, message)
     
-    def set_commands(self):
+    def set_commands(self, *commands):
         self.client.add_cog(commands.General(self))
         self.client.add_cog(commands.Debugging(self))
         
-    def set_events(self):
+        for c in commands:
+            self.client.add_cog(c)
+        
+    def set_events(self, *events):
         self.client.event(self.event_ready())
         self.client.event(self.event_member_join())
+
+        for e in events:
+            self.client.event(e)
+            
