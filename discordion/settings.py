@@ -2,7 +2,8 @@
 """Settings used for the bot. Values are set in chatbot.Bot"""
 
 """Files"""
-FILE_DATABASE = ""
+DATABASE_MANUAL = ""  # Records are typically set by bot owner
+DATABASE_AUTO = "bot.db"    # Records are automatically set by bot
 
 """Private settings"""
 BOT_ID = ""

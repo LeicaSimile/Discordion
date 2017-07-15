@@ -19,10 +19,13 @@ class Bot(object):
         bot (discord.Bot): The bot instance.
 
     Kwargs:
-        db_file (str): Filepath of the database file.
+        db_manual (str): Filepath of the main database file. Records here are
+            managed by the owner, containing the bot's phrases and other settings.
         bot_id (str): Bot's client ID.
         owner_id (str): Owner's ID.
         token (str): Bot's token.
+        db_auto (str): Filepath of the database file managed by the bot.
+            All records here are managed automatically.
         secret (str, optional): Bot's client secret.
         prefix (str, optional): The command prefix.
         status (str, optional): The bot's "Playing" status message.
@@ -46,7 +49,8 @@ class Bot(object):
     def __init__(self, bot, **kwargs):
         self.client = bot
         self.set_settings(**kwargs)
-        self.db = sqlitereader.Database(settings.FILE_DATABASE)
+        self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
+        self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
 
     def run(self, token):
         self.set_events()
@@ -55,12 +59,13 @@ class Bot(object):
 
     def set_settings(**kwargs):
         ## Mandatory arguments
-        settings.FILE_DATABASE = kwargs["db_file"]
+        settings.DATABASE_MANUAL = kwargs["db_manual"]
         settings.BOT_ID = kwargs["bot_id"]
         settings.OWNER_ID = kwargs["owner_id"]
         settings.TOKEN = kwargs["token"]
 
         ## Optional arguments
+        settings.DATABASE_AUTO = kwargs.get("db_auto", "bot.db")
         settings.BOT_PREFIX = kwargs.get("prefix", "!")
         settings.BOT_STATUS = kwargs.get("status", f"{settings.BOT_PREFIX}help")
         settings.BOT_DISPLAY_NAME = kwargs.get("placeholder_bot_display",
@@ -101,7 +106,7 @@ class Bot(object):
         Args:
             category(unicode): The phrase category - see enum 'Category' in phrases.py.
         """
-        return self.db.random_line("line", "phrases", {"category_id": category})
+        return self.db_manual.random_line("line", "phrases", {"category_id": category})
 
     def parse(self, text, context=None, substitutions=None):
         """ Interprets a string and formats accordingly, substitutes values, etc.
