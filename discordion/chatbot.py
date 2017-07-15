@@ -40,6 +40,11 @@ class Bot(object):
         placeholder_server (str, optional): Placeholder for current
             server's name.
         placeholder_user (str, optional): Placeholder for the user's name.
+        table_phrases (str, optional): Name of the phrases table.
+        header_phrases_phrase (str, optional): Name of the column of phrases in the
+            phrases table.
+        header_phrases_category (str, optional): Name of the column of categories
+            in the phrases table.
         
     Attributes:
         db (BotDatabase): The bot's database.
@@ -65,18 +70,23 @@ class Bot(object):
         settings.TOKEN = kwargs["token"]
 
         ## Optional arguments
-        settings.DATABASE_AUTO = kwargs.get("db_auto", "bot.db")
-        settings.BOT_PREFIX = kwargs.get("prefix", "!")
-        settings.BOT_STATUS = kwargs.get("status", f"{settings.BOT_PREFIX}help")
+        settings.DATABASE_AUTO = kwargs.get("db_auto", settings.DATABASE_AUTO)
+        settings.BOT_PREFIX = kwargs.get("prefix", settings.BOT_PREFIX)
+        settings.BOT_STATUS = kwargs.get("status", settings.BOT_STATUS)
         settings.BOT_DISPLAY_NAME = kwargs.get("placeholder_bot_display",
-                                               "%botnick%")
-        settings.BOT_NAME = kwargs.get("placeholder_bot", "%bot%")
-        settings.CHANNEL_NAME = kwargs.get("placeholder_channel", "%channel%")
-        settings.DISPLAY_NAME = kwargs.get("placeholder_display", "%display%")
-        settings.EMOTE = kwargs.get("placeholder_emote", "%ACT")
-        settings.MENTION = kwargs.get("placeholder_mention", "%mention%")
-        settings.SERVER_NAME = kwargs.get("placeholder_server", "%server%")
-        settings.USER_NAME = kwargs.get("placeholder_user", "%name%")
+                                               settings.BOT_DISPLAY_NAME)
+        settings.BOT_NAME = kwargs.get("placeholder_bot", settings.BOT_NAME)
+        settings.CHANNEL_NAME = kwargs.get("placeholder_channel", settings.CHANNEL_NAME)
+        settings.DISPLAY_NAME = kwargs.get("placeholder_display", settings.DISPLAY_NAME)
+        settings.EMOTE = kwargs.get("placeholder_emote", settings.EMOTE)
+        settings.MENTION = kwargs.get("placeholder_mention", settings.MENTION)
+        settings.SERVER_NAME = kwargs.get("placeholder_server", settings.SERVER_NAME)
+        settings.USER_NAME = kwargs.get("placeholder_user", settings.USER_NAME)
+        settings.TABlE_PHRASES = kwargs.get("table_phrases", settings.TABLE_PHRASES)
+        settings.HEADER_PHRASES_PHRASE = kwargs.get("header_phrases_phrase",
+                                                    settings.HEADER_PHRASES_PHRASE)
+        settings.HEADER_PHRASES_CATEGORY = kwargs.get("header_phrases_category",
+                                                      settings.HEADER_PHRASES_CATEGORY)
 
     def event_member_join(self):
         async def on_member_join(member):
@@ -106,7 +116,11 @@ class Bot(object):
         Args:
             category(unicode): The phrase category - see enum 'Category' in phrases.py.
         """
-        return self.db_manual.random_line("line", "phrases", {"category_id": category})
+        header_phrase = settings.HEADER_PHRASES_PHRASE
+        header_category = settings.HEADER_PHRASES_CATEGORY
+        table = settings.TABLE_PHRASES
+        
+        return self.db_manual.random_line(header, table, {header_category: category})
 
     def parse(self, text, context=None, substitutions=None):
         """ Interprets a string and formats accordingly, substitutes values, etc.
