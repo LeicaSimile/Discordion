@@ -18,17 +18,6 @@ class General(object):
             bot(chatbot.Bot): Bot instance.
         """
         self.bot = bot
-
-    @commands.command(description=":scissors:", pass_context=True)
-    async def rps(self, context):
-        """ Rock, paper, scissors. """
-        choices = ("Rock! :new_moon:",
-                   "Paper! :newspaper:",
-                   "Scissors! :scissors:"
-                   )
-        response = random.choice(choices)
-        
-        await self.bot.say(context.message.channel, response)
         
     @commands.command(pass_context=True)
     async def shutdown(self, context):
