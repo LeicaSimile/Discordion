@@ -24,3 +24,8 @@ EMOTE = "%ACT"
 MENTION = "%mention%"
 SERVER_NAME = "%server%"
 USER_NAME = "%name%"
+
+"""Database tables and headers"""
+TABLE_PHRASES = "phrases"
+HEADER_PHRASES_PHRASE = "phrase"
+HEADER_PHRASES_CATEGORY = "category_id"
