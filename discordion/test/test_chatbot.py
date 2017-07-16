@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from .. import chatbot
+from ..chatbot import Bot
 
 
 def test_bot_parse():
