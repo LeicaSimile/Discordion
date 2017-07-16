@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from discordion.chatbot import Bot
+from .. import chatbot
 
 
 def test_bot_parse():

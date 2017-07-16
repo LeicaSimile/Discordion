@@ -4,7 +4,7 @@ from enum import Enum
 import pyliner
 from sqlitereader import Database
 
-import settings
+from . import settings
 
 ## === Classes === ##
 class Category(Enum):

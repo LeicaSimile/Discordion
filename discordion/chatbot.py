@@ -6,9 +6,9 @@ import discord
 import pyliner
 import sqlitereader
 
-from context import GeneralContext
-import commands
-import settings
+from .context import GeneralContext
+from . import commands
+from . import settings
 
 logger = logging.getLogger(__name__)
 

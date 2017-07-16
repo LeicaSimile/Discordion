@@ -4,9 +4,9 @@ import random
 import discord
 from discord.ext import commands
 
-from context import GeneralContext
-import database
-import settings
+from .context import GeneralContext
+from . import database
+from . import settings
 
 
 class General(object):
