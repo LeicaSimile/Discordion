@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sqlite3
 from enum import Enum
 
 import pyliner
