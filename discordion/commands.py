@@ -6,7 +6,7 @@ from discord.ext import commands
 
 from .context import GeneralContext
 from . import database
-from . import settings
+from .settings import config
 
 
 class General(object):
