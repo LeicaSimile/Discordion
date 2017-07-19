@@ -22,7 +22,7 @@ class General(object):
     @commands.command(pass_context=True)
     async def shutdown(self, context):
         context = GeneralContext(context=context)
-        if context.user.id == settings.OWNER_ID:
+        if context.user.id == config.get("bot", "owner_id"):
             try:
                 response = self.bot.get_phrase(database.Category.SHUTDOWN.value)
                 

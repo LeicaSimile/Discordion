@@ -9,6 +9,7 @@ import sqlitereader
 from .context import GeneralContext
 from . import commands
 from . import settings
+from .settings import config
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +27,8 @@ class Bot(object):
     
     def __init__(self, bot, file_config):
         self.client = bot
-        self.set_settings(file_config)
+        settings.read_file(file_config)
+        
         self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
         self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
 
@@ -34,9 +36,6 @@ class Bot(object):
         self.set_events()
         self.set_commands()
         self.client.run(token)
-
-    def set_settings(filepath):
-        pass
     
     def event_member_join(self):
         async def on_member_join(member):
@@ -51,11 +50,12 @@ class Bot(object):
 
     def event_ready(self):
         async def on_ready():
+            prefix = config.get("bot", "prefix")
             logger.info(f"{self.client.user.name} is now online.")
             logger.info(f"ID: {self.client.user.id}")
-            logger.info(f"Command prefix: {settings.BOT_PREFIX}")
+            logger.info(f"Command prefix: {prefix}")
 
-            status = settings.BOT_STATUS
+            status = config.get("bot", "status")
             await self.client.change_presence(game=discord.Game(name=status))
 
         return on_ready
@@ -66,9 +66,9 @@ class Bot(object):
         Args:
             category(unicode): The phrase category - see enum 'Category' in phrases.py.
         """
-        header_phrase = settings.HEADER_PHRASES_PHRASE
-        header_category = settings.HEADER_PHRASES_CATEGORY
-        table = settings.TABLE_PHRASES
+        header_phrase = config.get("headers", "phrases_phrase")
+        header_category = config.get("headers", "phrases_category")
+        table = config.get("tables", "phrases")
         
         return self.db_manual.random_line(header, table, {header_category: category})
 
@@ -87,32 +87,41 @@ class Bot(object):
         if not substitutions: substitutions = {}
         text = phrases.parse_all(text)
 
+        ph_bot_name = config.get("placeholders", "bot_name")
+        ph_bot_display = config.get("placeholders", "bot_display")
+        ph_emote = config.get("placeholders", "emote")
+        ph_channel = config.get("placeholders", "channel_name")
+        ph_user_display = config.get("placeholders", "user_display")
+        ph_mention = config.get("placeholders", "mention")
+        ph_user_name = config.get("placeholders", "user_name")
+        ph_server = config.get("placeholders", "server_name")
+
         ## Add context variables to substitutions.
-        substitutions[settings.BOT_DISPLAY_NAME] = self.client.user.name
-        substitutions[settings.BOT_NAME] = self.client.user.display_name
-        substitutions[settings.EMOTE] = "/me"
+        substitutions[ph_bot_name] = self.client.user.name
+        substitutions[ph_bot_display] = self.client.user.display_name
+        substitutions[ph_emote] = "/me"
 
         try:
             ## Channel variables
-            substitutions[settings.CHANNEL_NAME] = context.channel.name
+            substitutions[ph_channel] = context.channel.name
         except AttributeError:
-            substitutions[settings.CHANNEL_NAME] = ""
+            substitutions[ph_channel] = ""
             
         try:
             ## User (author) variables
-            substitutions[settings.DISPLAY_NAME] = context.user.display_name
-            substitutions[settings.MENTION] = context.user.mention
-            substitutions[settings.USER_NAME] = context.user.name
+            substitutions[ph_user_display] = context.user.display_name
+            substitutions[ph_mention] = context.user.mention
+            substitutions[ph_user_name] = context.user.name
         except AttributeError:
-            substitutions[settings.DISPLAY_NAME] = ""
-            substitutions[settings.MENTION] = ""
-            substitutions[settings.USER_NAME] = ""
+            substitutions[ph_user_display] = ""
+            substitutions[ph_mention] = ""
+            substitutions[ph_user_name] = ""
             
         try:
             ## Server variables
-            substitutions[settings.SERVER_NAME] = context.server.name
+            substitutions[ph_server] = context.server.name
         except AttributeError:
-            substitutions[settings.SERVER_NAME] = ""
+            substitutions[ph_server] = ""
 
         for s in substitutions:
             if not substitutions[s]:
