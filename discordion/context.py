@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from discord.ext.commands import context
 
-from . import settings
-
 
 class GeneralContext(context.Context):
     """Expanded version of the Discord Context class.
