@@ -17,43 +17,16 @@ class Bot(object):
     """
     Args:
         bot (discord.Bot): The bot instance.
-
-    Kwargs:
-        db_manual (str): Filepath of the main database file. Records here are
-            managed by the owner, containing the bot's phrases and other settings.
-        bot_id (str): Bot's client ID.
-        owner_id (str): Owner's ID.
-        token (str): Bot's token.
-        db_auto (str): Filepath of the database file managed by the bot.
-            All records here are managed automatically.
-        secret (str, optional): Bot's client secret.
-        prefix (str, optional): The command prefix.
-        status (str, optional): The bot's "Playing" status message.
-        placeholder_bot_display (str, optional): Placeholder for bot's
-            display name.
-        placeholder_bot (str, optional): Placeholder for bot's username.
-        placeholder_channel (str, optional): Placeholder for current
-            channel's name.
-        placeholder_display (str, optional): Placeholder for user's display name.
-        placeholder_emote (str, optional): Placeholder for "/me".
-        placeholder_mention (str, optional): Placeholder for user mention.
-        placeholder_server (str, optional): Placeholder for current
-            server's name.
-        placeholder_user (str, optional): Placeholder for the user's name.
-        table_phrases (str, optional): Name of the phrases table.
-        header_phrases_phrase (str, optional): Name of the column of phrases in the
-            phrases table.
-        header_phrases_category (str, optional): Name of the column of categories
-            in the phrases table.
+        file_config (str): Filepath of config file with bot's settings.
         
     Attributes:
         db (BotDatabase): The bot's database.
         
     """
     
-    def __init__(self, bot, **kwargs):
+    def __init__(self, bot, file_config):
         self.client = bot
-        self.set_settings(**kwargs)
+        self.set_settings(file_config)
         self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
         self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
 
@@ -62,32 +35,9 @@ class Bot(object):
         self.set_commands()
         self.client.run(token)
 
-    def set_settings(**kwargs):
-        ## Mandatory arguments
-        settings.DATABASE_MANUAL = kwargs["db_manual"]
-        settings.BOT_ID = kwargs["bot_id"]
-        settings.OWNER_ID = kwargs["owner_id"]
-        settings.TOKEN = kwargs["token"]
-
-        ## Optional arguments
-        settings.DATABASE_AUTO = kwargs.get("db_auto", settings.DATABASE_AUTO)
-        settings.BOT_PREFIX = kwargs.get("prefix", settings.BOT_PREFIX)
-        settings.BOT_STATUS = kwargs.get("status", settings.BOT_STATUS)
-        settings.BOT_DISPLAY_NAME = kwargs.get("placeholder_bot_display",
-                                               settings.BOT_DISPLAY_NAME)
-        settings.BOT_NAME = kwargs.get("placeholder_bot", settings.BOT_NAME)
-        settings.CHANNEL_NAME = kwargs.get("placeholder_channel", settings.CHANNEL_NAME)
-        settings.DISPLAY_NAME = kwargs.get("placeholder_display", settings.DISPLAY_NAME)
-        settings.EMOTE = kwargs.get("placeholder_emote", settings.EMOTE)
-        settings.MENTION = kwargs.get("placeholder_mention", settings.MENTION)
-        settings.SERVER_NAME = kwargs.get("placeholder_server", settings.SERVER_NAME)
-        settings.USER_NAME = kwargs.get("placeholder_user", settings.USER_NAME)
-        settings.TABlE_PHRASES = kwargs.get("table_phrases", settings.TABLE_PHRASES)
-        settings.HEADER_PHRASES_PHRASE = kwargs.get("header_phrases_phrase",
-                                                    settings.HEADER_PHRASES_PHRASE)
-        settings.HEADER_PHRASES_CATEGORY = kwargs.get("header_phrases_category",
-                                                      settings.HEADER_PHRASES_CATEGORY)
-
+    def set_settings(filepath):
+        pass
+    
     def event_member_join(self):
         async def on_member_join(member):
             server = member.server
