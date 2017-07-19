@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-import unittest
+from discord.ext import commands
 
 from ..chatbot import Bot
+from .. import settings
 
 
 def test_bot_parse():
