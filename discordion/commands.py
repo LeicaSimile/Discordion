@@ -27,6 +27,7 @@ class General(object):
         await self.bot.client.send_message(context.message.channel,
                                            f"{user_name}, your ID is {user_id}")
 
+
 class Owner(object):
     """Commands usable only by the owner."""
 
@@ -51,7 +52,13 @@ class Owner(object):
             response = "Don't tell me what to do."
             await self.bot.say(context.channel, message)
 
+    @commands.command(pass_context=True)
+    async def changegame(self, context):
+        async def change_status(context):
+            g = discord.Game(name=context.message)
+            await self.bot.client.change_presence(game=g)
 
+        await validate_owner(context, change_status)
 
     async def validate_owner(self, context, function_pass, function_fail=None):
         """ Check if the owner issued the command.
