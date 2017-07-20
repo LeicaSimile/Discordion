@@ -27,7 +27,8 @@ class Bot(object):
     
     def __init__(self, bot, file_config):
         self.client = bot
-        settings.read_file(file_config)
+        self.file_config = file_config
+        settings.read_file(self.file_config)
         
         self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
         self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
