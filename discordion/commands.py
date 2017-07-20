@@ -42,21 +42,6 @@ class General(object):
             await self.bot.say(context.channel, message)
 
 
-class Debugging(object):
-    """Commands for debugging and testing."""
 
-    def __init__(self, bot):
-        """
-        Args:
-            bot(chatbot.Bot): Bot instance.
-        """
-        self.bot = bot
 
-    @commands.command(description="Tells you your user ID.", pass_context=True)
-    async def getid(self, context):
-        user_id = context.message.author.id
-        user_name = context.message.author.mention
-        
-        await self.bot.client.send_message(context.message.channel,
-                                           f"{user_name}, your ID is {user_id}")
 
