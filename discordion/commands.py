@@ -77,8 +77,8 @@ class Owner(object):
             await function_pass()
         else:
             try:
-            except Exception:
                 await function_fail()
+            except TypeError:
                 response = "Don't tell me what to do."
                 await self.bot.say(context.channel, message)
     
