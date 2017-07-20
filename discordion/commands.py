@@ -75,18 +75,20 @@ class Owner(object):
         Args:
             context (discord.Context): Context of the command.
             function_pass (func): Function to call if check passes.
-                Must be a coroutine.
+                Must be a coroutine that accepts a GeneralContext object
+                as an argument.
             function_fail (func, optional): Function to call if check fails.
-                Must be a coroutine. If none provided, bot will give a stock
+                Must be a coroutine that accepts a GeneralContext object
+                as an argument. If none provided, bot will give a stock
                 warning to the user.
 
         """
         context = GeneralContext(context=context)
         if context.user.id == config.get("bot", "owner_id"):
-            await function_pass()
+            await function_pass(context)
         else:
             try:
-                await function_fail()
+                await function_fail(context)
             except TypeError:
                 response = "Don't tell me what to do."
                 await self.bot.say(context.channel, message)
