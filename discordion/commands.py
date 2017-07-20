@@ -27,6 +27,16 @@ class General(object):
         await self.bot.client.send_message(context.message.channel,
                                            f"{user_name}, your ID is {user_id}")
 
+class Owner(object):
+    """Commands usable only by the owner."""
+
+    def __init__(self, bot):
+        """
+        Args:
+            bot(chatbot.Bot): Bot instance.
+        """
+        self.bot = bot
+
     @commands.command(pass_context=True)
     async def shutdown(self, context):
         context = GeneralContext(context=context)
