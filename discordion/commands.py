@@ -6,6 +6,7 @@ from discord.ext import commands
 
 from .context import GeneralContext
 from . import database
+from . import settings
 from .settings import config
 
 
@@ -59,6 +60,14 @@ class Owner(object):
             await self.bot.client.change_presence(game=g)
 
         await validate_owner(context, change_status)
+
+    @commands.command(pass_context=True)
+    async def reconfig(self, context):
+        async def read_config(context):
+            settings.read_config(self.bot.file_config)
+            await self.bot.say(context.channel, "Settings updated.")
+
+        await validate_owner(context, read_config)
 
     async def validate_owner(self, context, function_pass, function_fail=None):
         """ Check if the owner issued the command.
