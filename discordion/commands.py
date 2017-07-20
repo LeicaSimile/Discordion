@@ -18,7 +18,15 @@ class General(object):
             bot(chatbot.Bot): Bot instance.
         """
         self.bot = bot
+
+    @commands.command(description="Tells you your user ID.", pass_context=True)
+    async def getid(self, context):
+        user_id = context.message.author.id
+        user_name = context.message.author.mention
         
+        await self.bot.client.send_message(context.message.channel,
+                                           f"{user_name}, your ID is {user_id}")
+
     @commands.command(pass_context=True)
     async def shutdown(self, context):
         context = GeneralContext(context=context)
