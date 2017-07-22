@@ -17,6 +17,7 @@ class General(object):
         """
         Args:
             bot(chatbot.Bot): Bot instance.
+            
         """
         self.bot = bot
 
@@ -36,6 +37,7 @@ class Owner(object):
         """
         Args:
             bot(chatbot.Bot): Bot instance.
+            
         """
         self.bot = bot
 

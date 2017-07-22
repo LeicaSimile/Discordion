@@ -18,7 +18,7 @@ class Category(Enum):
 
 
 class DiscordDatabase(Database):
-    """ An extension of Database for Discord. """
+    """An extension of Database for Discord."""
 
     def add_server(self, server):
         """ Adds a server record to the database.
@@ -40,13 +40,14 @@ class DiscordDatabase(Database):
 
 
 class BotDatabase(DiscordDatabase):
-    """ An extension of DiscordDatabase for functions specific to the bot. """
+    """An extension of DiscordDatabase for functions specific to the bot."""
 
     def add_song(self, url):
         """ Adds a song to the database.
 
         Args:
             url(str): URL of the song.
+
         """
         pass
 

@@ -66,6 +66,7 @@ class Bot(object):
 
         Args:
             category(unicode): The phrase category - see enum 'Category' in phrases.py.
+
         """
         header_phrase = config.get("headers", "phrases_phrase")
         header_category = config.get("headers", "phrases_category")
@@ -84,6 +85,7 @@ class Bot(object):
 
         Returns:
             text(unicode): Parsed string.
+
         """
         if not substitutions: substitutions = {}
         text = phrases.parse_all(text)

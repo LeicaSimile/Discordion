@@ -12,6 +12,7 @@ class GeneralContext(context.Context):
         channel(discord.Channel):
         server(discord.Server):
         user(discord.Member/User):
+
     """
 
     def __init__(self, **attrs):
