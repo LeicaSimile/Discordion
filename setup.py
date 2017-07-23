@@ -8,7 +8,7 @@ setup(name="discordion",
       packages=["discordion"],
       install_requires=[
           "pyliner==1.0",
-          "sqlitereader=1.0",
+          "sqlitereader==1.0",
           ],
       dependency_links=[
           "git+https://github.com/Tumthe3/Pyliner.git#egg=pyliner-1.0",
