@@ -11,8 +11,8 @@ setup(name="discordion",
           "sqlitereader==1.0",
           ],
       dependency_links=[
-          "git+https://github.com/Tumthe3/Pyliner.git#egg=pyliner-1.0",
-          "git+https://github.com/Tumthe3/SQLite-Reader.git#egg=sqlitereader-1.0",
+          "git+ssh://git@github.com/Tumthe3/Pyliner.git@master#egg=pyliner-1.0",
+          "git+ssh://git@github.com/Tumthe3/SQLite-Reader.git@master#egg=sqlitereader-1.0",
           ],
       license="MIT"
      )
