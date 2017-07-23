@@ -1,2 +1,2 @@
 discord.py==0.16.8
--r dependency-links.txt
+pyliner==1.0
