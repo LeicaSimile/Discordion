@@ -1,2 +1,3 @@
 discord.py==0.16.8
 pyliner==1.0
+sqlitehouse==1.0
