@@ -7,6 +7,10 @@ setup(name="discordion",
       author="Tumthe3",
       author_email="tumthe3@gmail.com",
       url="https://github.com/Tumthe3/Discordion",
+      install_requires=[
+          "pyliner==1.0",
+          "sqlitehouse==1.0",
+          ],
       packages=["discordion"],
       license="MIT"
      )
