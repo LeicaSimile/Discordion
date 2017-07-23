@@ -4,7 +4,7 @@ import logging
 
 import discord
 import pyliner
-import sqlitereader
+import sqlitehouse
 
 from .context import GeneralContext
 from . import commands
@@ -30,8 +30,8 @@ class Bot(object):
         self.file_config = file_config
         settings.read_file(self.file_config)
         
-        self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
-        self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
+        self.db_manual = sqlitehouse.Database(settings.DATABASE_MANUAL)
+        self.db_auto = sqlitehouse.Database(settings.DATABASE_AUTO)
 
     def run(self):
         self.set_events()

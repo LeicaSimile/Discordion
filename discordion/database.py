@@ -3,7 +3,7 @@ import sqlite3
 from enum import Enum
 
 import pyliner
-from sqlitereader import Database
+from sqlitehouse import Database
 
 from .settings import config
 
