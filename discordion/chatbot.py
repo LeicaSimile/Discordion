@@ -33,10 +33,10 @@ class Bot(object):
         self.db_manual = sqlitereader.Database(settings.DATABASE_MANUAL)
         self.db_auto = sqlitereader.Database(settings.DATABASE_AUTO)
 
-    def run(self, token):
+    def run(self):
         self.set_events()
         self.set_commands()
-        self.client.run(token)
+        self.client.run(config.get("bot", "token"))
     
     def event_member_join(self):
         async def on_member_join(member):
