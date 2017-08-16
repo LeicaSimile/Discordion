@@ -21,20 +21,38 @@ class DiscordDatabase(Database):
     """An extension of Database for Discord."""
 
     def add_server(self, server):
-        """ Adds a server record to the database.
+        """Adds a server record to the database.
 
         Args:
-            server(discord.Server): Server to add.
+            server (discord.Server): Server to add.
 
         """
         pass
 
     def remove_server(self, server):
-        """ Removes a server from the database.
+        """Removes a server from the database.
 
         Args:
-            server(discord.Server): Server to remove.
+            server (discord.Server): Server to remove.
 
+        """
+        pass
+
+    def add_user(self, user):
+        """Adds a user record to the database.
+
+        Args:
+            user (discord.User): User to add.
+            
+        """
+        pass
+
+    def remove_user(self, user):
+        """Removes a user from the database.
+
+        Args:
+            user (discord.User): User to remove.
+            
         """
         pass
 
@@ -43,28 +61,28 @@ class BotDatabase(DiscordDatabase):
     """An extension of DiscordDatabase for functions specific to the bot."""
 
     def add_song(self, url):
-        """ Adds a song to the database.
+        """Adds a song to the database.
 
         Args:
-            url(str): URL of the song.
+            url (str): URL of the song.
 
         """
         pass
 
     def add_playlist(self, name, user):
-        """ Adds a playlist to the database.
+        """Adds a playlist to the database.
 
         Playlists are bound to one user across all servers.
 
         Args:
-            name(str): Name of the playlist.
-            user(discord.Member/User): User who made the playlist.
+            name (str): Name of the playlist.
+            user (discord.Member/User): User who made the playlist.
 
         """
         pass
 
     def add_playlist_song(self, song, playlist):
-        """ Adds a song to a playlist.
+        """Adds a song to a playlist.
 
         Args:
             song(): Song to add.
