@@ -9,7 +9,7 @@ setup(name="discordion",
       url="https://github.com/Tumthe3/Discordion",
       install_requires=[
           "pyliner==1.0",
-          "sqlitehouse==1.1",
+          "sqlitehouse==1.2",
           ],
       packages=["discordion"],
       license="MIT"
