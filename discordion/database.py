@@ -3,7 +3,7 @@ import sqlite3
 from enum import Enum
 
 import pyliner
-from sqlitehouse import Database
+from sqlitehouse import Database, TableColumn
 
 from .settings import config
 
@@ -19,6 +19,24 @@ class Category(Enum):
 
 class DiscordDatabase(Database):
     """An extension of Database for Discord."""
+
+    def setup(self):
+        """Initializes database if there is none."""
+        tbl_servers = config.get("tables", "servers")
+        head_server = config.get("headers", "servers_server")
+        col_servers = [
+            TableColumn("id", "INTEGER", primary_key=True),
+            TableColumn(head_server, "TEXT")
+            ]
+        self.create_table(tbl_servers, col_servers)
+
+        tbl_users = config.get("tables", "users")
+        head_user = config.get("headers", "users_user")
+        col_users = [
+            TableColumn("id", "INTEGER", primary_key=True),
+            TableColumn(head_user, "TEXT")
+            ]
+        self.create_table(tbl_users, col_users)
 
     def add_server(self, server):
         """Adds a server record to the database.
