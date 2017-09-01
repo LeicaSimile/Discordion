@@ -47,7 +47,13 @@ class DiscordDatabase(Database):
             server (discord.Server): Server to add.
 
         """
-        pass
+        table = config.get("tables", "servers")
+        head_id = config.get("headers", "servers_id")
+        head_name = config.get("headers", "servers_server")
+        
+        cols = [head_id, head_name]
+        vals = [server.id, server.name]
+        self.insert(table, vals, cols)
 
     def remove_server(self, server):
         """Removes a server from the database.
