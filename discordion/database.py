@@ -23,17 +23,19 @@ class DiscordDatabase(Database):
     def setup(self):
         """Initializes database if there is none."""
         tbl_servers = config.get("tables", "servers")
+        head_serverid = config.get("headers", "servers_id")
         head_server = config.get("headers", "servers_server")
         col_servers = [
-            TableColumn("id", "INTEGER", primary_key=True),
+            TableColumn(head_serverid, "INTEGER", primary_key=True),
             TableColumn(head_server, "TEXT")
             ]
         self.create_table(tbl_servers, col_servers)
 
         tbl_users = config.get("tables", "users")
+        head_userid = config.get("headers", "users_id")
         head_user = config.get("headers", "users_user")
         col_users = [
-            TableColumn("id", "INTEGER", primary_key=True),
+            TableColumn(head_userid, "INTEGER", primary_key=True),
             TableColumn(head_user, "TEXT")
             ]
         self.create_table(tbl_users, col_users)
