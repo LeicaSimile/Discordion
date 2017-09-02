@@ -88,7 +88,9 @@ class DiscordDatabase(Database):
             user (discord.User): User to remove.
             
         """
-        pass
+        table = config.get("tables", "users")
+        header = config.get("headers", "users_id")
+        self.delete(table, conditions={header: user.id})
 
 
 class BotDatabase(DiscordDatabase):
