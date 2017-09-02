@@ -73,7 +73,13 @@ class DiscordDatabase(Database):
             user (discord.User): User to add.
             
         """
-        pass
+        table = config.get("tables", "users")
+        head_id = config.get("headers", "users_id")
+        head_name = config.get("headers", "users_user")
+        
+        cols = [head_id, head_name]
+        vals = [user.id, user.name]
+        self.insert(table, vals, cols)
 
     def remove_user(self, user):
         """Removes a user from the database.
