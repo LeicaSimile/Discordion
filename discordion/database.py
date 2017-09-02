@@ -62,7 +62,9 @@ class DiscordDatabase(Database):
             server (discord.Server): Server to remove.
 
         """
-        pass
+        table = config.get("tables", "servers")
+        header = config.get("headers", "servers_id")
+        self.delete(table, conditions={header: serverid})
 
     def add_user(self, user):
         """Adds a user record to the database.
