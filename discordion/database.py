@@ -64,7 +64,7 @@ class DiscordDatabase(Database):
         """
         table = config.get("tables", "servers")
         header = config.get("headers", "servers_id")
-        self.delete(table, conditions={header: serverid})
+        self.delete(table, conditions={header: server.id})
 
     def add_user(self, user):
         """Adds a user record to the database.
