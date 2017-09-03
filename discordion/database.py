@@ -96,6 +96,46 @@ class DiscordDatabase(Database):
 class BotDatabase(DiscordDatabase):
     """An extension of DiscordDatabase for functions specific to the bot."""
 
+    def setup(self):
+        super(type(self), self).setup()
+        tbl_songs = config.get("tables", "songs")
+        head_songid = config.get("headers", "songs_id")
+        head_song = config.get("headers", "songs_song")
+        head_songurl = config.get("headers", "songs_url")
+        head_songplays = config.get("headers", "songs_plays")
+        head_songskips = config.get("headers", "songs_skips")
+        col_songs = [
+            TableColumn(head_songid, "INTEGER", primary_key=True),
+            TableColumn(head_song, "TEXT"),
+            TableColumn(head_songurl, "TEXT"),
+            TableColumn(head_songplays, "INTEGER"),
+            TableColumn(head_songskips, "INTEGER"),
+            ]
+        self.create_table(tbl_songs, col_songs)
+
+        tbl_playlists = config.get("tables", "playlists")
+        head_playlistsid = config.get("headers", "playlists_id")
+        head_playlist = config.get("headers", "playlists_playlist")
+        head_playlistcreator = config.get("headers", "playlists_creator")
+        col_playlists = [
+            TableColumn(head_playlistsid, "INTEGER", primary_key=True),
+            TableColumn(head_playlist, "TEXT"),
+            TableColumn(head_playlistcreator, "INTEGER"),
+            ]
+        self.create_table(tbl_playlists, col_playlists)
+
+        tbl_pls = config.get("tables", "playlistsongs")
+        head_plsid = config.get("headers", "playlistsongs_id")
+        head_plsplaylist = config.get("headers", "playlistsongs_playlistid")
+        head_plssong = config.get("headers", "playlistsongs_songid")
+        
+        col_pls = [
+            TableColumn(head_plsid, "INTEGER", primary_key=True),
+            TableColumn(head_plsplaylist, "INTEGER"),
+            TableColumn(head_plssong, "INTEGER"),
+            ]
+        self.create_table(tbl_pls, col_pls)
+
     def add_song(self, url):
         """Adds a song to the database.
 
@@ -117,7 +157,7 @@ class BotDatabase(DiscordDatabase):
         """
         pass
 
-    def add_playlist_song(self, song, playlist):
+    def add_playlistsong(self, song, playlist):
         """Adds a song to a playlist.
 
         Args:
