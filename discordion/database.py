@@ -155,7 +155,13 @@ class BotDatabase(DiscordDatabase):
             user (discord.Member/User): User who made the playlist.
 
         """
-        pass
+        table = config.get("tables", "playlists")
+        head_name = config.get("headers", "playlists_playlist")
+        head_creator = config.get("headers", "playlists_creator")
+
+        vals = [(name, user),]
+        cols = [head_name, head_creator]
+        self.insert(table, vals, cols)
 
     def add_playlistsong(self, song, playlist):
         """Adds a song to a playlist.
