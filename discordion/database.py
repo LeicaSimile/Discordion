@@ -51,7 +51,7 @@ class DiscordDatabase(Database):
         head_id = config.get("headers", "servers_id")
         head_name = config.get("headers", "servers_server")
         
-        cols = [head_id, head_name]
+        cols = [(head_id, head_name),]
         vals = [server.id, server.name]
         self.insert(table, vals, cols)
 
@@ -77,7 +77,7 @@ class DiscordDatabase(Database):
         head_id = config.get("headers", "users_id")
         head_name = config.get("headers", "users_user")
         
-        cols = [head_id, head_name]
+        cols = [(head_id, head_name),]
         vals = [user.id, user.name]
         self.insert(table, vals, cols)
 
