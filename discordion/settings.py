@@ -3,7 +3,7 @@
 from configparser import ConfigParser, ExtendedInterpolation
 
 
-config = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolation)
+config = ConfigParser(allow_no_value=True, interpolation=ExtendedInterpolation())
 
 def read_settings(filename):
     config.read(filename)
