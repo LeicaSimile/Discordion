@@ -28,7 +28,7 @@ class Bot(object):
     
     def __init__(self, file_config, formatter=None, pm_help=False, **options):
         self.file_config = file_config
-        settings.read_file(self.file_config)
+        settings.read_settings(self.file_config)
         command_prefix = config.get("bot", "prefix")
         description = config.get("bot", "description")
 
