@@ -3,6 +3,7 @@ import configparser
 import logging
 
 import discord
+from discord.ext import commands
 import pyliner
 import sqlitehouse
 
@@ -25,11 +26,13 @@ class Bot(object):
         
     """
     
-    def __init__(self, bot, file_config):
-        self.client = bot
+    def __init__(self, file_config, formatter=None, pm_help=False, **options):
         self.file_config = file_config
         settings.read_file(self.file_config)
-        
+        command_prefix = config.get("bot", "prefix")
+        description = config.get("bot", "description")
+
+        self.client = commands.Bot(command_prefix, formatter, description, pm_help, **options)
         self.db_manual = sqlitehouse.Database(settings.DATABASE_MANUAL)
         self.db_auto = sqlitehouse.Database(settings.DATABASE_AUTO)
 
