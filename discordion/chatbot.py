@@ -33,8 +33,8 @@ class Bot(object):
         description = config.get("bot", "description")
 
         self.client = discord.ext.commands.Bot(command_prefix, formatter, description, pm_help, **options)
-        self.db_manual = sqlitehouse.Database(settings.DATABASE_MANUAL)
-        self.db_auto = sqlitehouse.Database(settings.DATABASE_AUTO)
+        self.db_manual = sqlitehouse.Database(config.get("files", "database_manual"))
+        self.db_auto = sqlitehouse.Database(config.get("files", "database_auto"))
 
     def run(self):
         self.set_events()
