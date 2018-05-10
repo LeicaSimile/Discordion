@@ -144,7 +144,7 @@ class Bot(object):
     
     def set_commands(self, *cmds):
         self.client.add_cog(commands.General(self))
-        self.client.add_cog(commands.Debugging(self))
+        self.client.add_cog(commands.Owner(self))
         
         for c in cmds:
             self.client.add_cog(c)
