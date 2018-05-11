@@ -12,8 +12,6 @@ from . import commands
 from . import settings
 from .settings import config
 
-logger = logging.getLogger(__name__)
-
 
 class Bot(object):
     """
@@ -26,7 +24,8 @@ class Bot(object):
         
     """
     
-    def __init__(self, file_config, formatter=None, pm_help=False, **options):
+    def __init__(self, file_config, logger=None, formatter=None, pm_help=False, **options):
+        self.logger = logger or logging.getLogger(__name__)
         self.file_config = file_config
         settings.read_settings(self.file_config)
         command_prefix = config.get("bot", "prefix")
@@ -55,9 +54,9 @@ class Bot(object):
     def event_ready(self):
         async def on_ready():
             prefix = config.get("bot", "prefix")
-            logger.info(f"{self.client.user.name} is now online.")
-            logger.info(f"ID: {self.client.user.id}")
-            logger.info(f"Command prefix: {prefix}")
+            self.logger.info(f"{self.client.user.name} is now online.")
+            self.logger.info(f"ID: {self.client.user.id}")
+            self.logger.info(f"Command prefix: {prefix}")
 
             status = config.get("bot", "status")
             await self.client.change_presence(game=discord.Game(name=status))
@@ -134,7 +133,7 @@ class Bot(object):
                 substitutions[s] = ""
                 
             text = text.replace(s, substitutions[s])
-            logger.debug(f"parse(): {text} (replaced '{s}' with '{substitutions[s]}')")
+            self.logger.debug(f"parse(): {text} (replaced '{s}' with '{substitutions[s]}')")
         
         return text
 
