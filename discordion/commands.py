@@ -58,10 +58,11 @@ class Owner(object):
     @commands.command(pass_context=True)
     async def changegame(self, context):
         async def change_status(context):
-            g = discord.Game(name=context.message)
+            status = context.argument
+            g = discord.Game(name=status)
             await self.bot.client.change_presence(game=g)
 
-        await validate_owner(context, change_status)
+        await self.validate_owner(context, change_status)
 
     @commands.command(pass_context=True)
     async def reconfig(self, context):
@@ -69,7 +70,7 @@ class Owner(object):
             settings.read_config(self.bot.file_config)
             await self.bot.say(context.channel, "Settings updated.")
 
-        await validate_owner(context, read_config)
+        await self.validate_owner(context, read_config)
 
     async def validate_owner(self, context, function_pass, function_fail=None):
         """ Check if the owner issued the command.
