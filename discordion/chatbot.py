@@ -41,17 +41,14 @@ class Bot(object):
         self.client.run(config.get("bot", "token"))
     
     def event_member_join(self):
+        """Define on_member_join to react to a member joining the server."""
         async def on_member_join(member):
-            server = member.server
-            response = self.get_phrase(phrases.Category.GREET.value)
-            ctx = GeneralContext(server=server, user=member)
-            
-            response = self.parse(response, context=ctx)
-            await self.client.send_message(server, response)
+            pass
 
         return on_member_join
 
     def event_ready(self):
+        """Override on_ready to """
         async def on_ready():
             prefix = config.get("bot", "prefix")
             self.logger.info(f"{self.client.user.name} is now online.")
@@ -74,7 +71,7 @@ class Bot(object):
         header_category = config.get("headers", "phrases_category")
         table = config.get("tables", "phrases")
         
-        return self.db_manual.random_line(header, table, {header_category: category})
+        return self.db_manual.random_line(header_phrase, table, {header_category: category})
 
     def parse(self, text, context=None, substitutions=None):
         """ Interprets a string and formats accordingly, substitutes values, etc.
@@ -142,11 +139,12 @@ class Bot(object):
         await self.client.send_message(destination, message)
     
     def set_commands(self, *cmds):
-        self.client.add_cog(commands.General(self))
-        self.client.add_cog(commands.Owner(self))
-        
-        for c in cmds:
-            self.client.add_cog(c)
+        if not cmds:
+            self.client.add_cog(commands.General(self))
+            self.client.add_cog(commands.Owner(self))
+        else:
+            for c in cmds:
+                self.client.add_cog(c)
         
     def set_events(self, *events):
         self.client.event(self.event_ready())
