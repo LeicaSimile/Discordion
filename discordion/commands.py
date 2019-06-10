@@ -56,15 +56,6 @@ class Owner(object):
             await self.bot.say(context.channel, message)
 
     @commands.command(pass_context=True)
-    async def changegame(self, context):
-        async def change_status(context):
-            status = context.argument
-            g = discord.Game(name=status)
-            await self.bot.client.change_presence(game=g)
-
-        await self.validate_owner(context, change_status)
-
-    @commands.command(pass_context=True)
     async def reconfig(self, context):
         async def read_config(context):
             settings.read_config(self.bot.file_config)
