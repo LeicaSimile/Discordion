@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name="discordion",
-      version="0.1.11",
+      version="0.1.12",
       description="A simple framework for discord chatbots",
       author="LeicaSimile",
       author_email="leicasimile@gmail.com",
