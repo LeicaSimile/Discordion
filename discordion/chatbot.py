@@ -24,14 +24,15 @@ class Bot(object):
         
     """
     
-    def __init__(self, file_config, logger=None, formatter=None, pm_help=False, **options):
+    def __init__(self, file_config, logger=None, **options):
         self.logger = logger or logging.getLogger(__name__)
         self.file_config = file_config
         settings.read_settings(self.file_config)
         command_prefix = config.get("bot", "prefix")
+        help_command = config.get("bot", "help_command")
         description = config.get("bot", "description")
 
-        self.client = discord.ext.commands.Bot(command_prefix, formatter, description, pm_help, **options)
+        self.client = discord.ext.commands.Bot(command_prefix=command_prefix, help_command=help_command, description, **options)
         self.db_manual = sqlitehouse.Database(config.get("files", "database_manual"))
         self.db_auto = sqlitehouse.Database(config.get("files", "database_auto"))
 
