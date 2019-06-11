@@ -21,12 +21,12 @@ class General(object):
         """
         self.bot = bot
 
-    @commands.command(description="Tells you your user ID.", pass_context=True)
+    @commands.command(description="Tells you your user ID.")
     async def getid(self, context):
         user_id = context.message.author.id
         user_name = context.message.author.mention
         
-        await self.bot.client.send_message(context.message.channel,
+        await self.bot.client.send(context.message.channel,
                                            f"{user_name}, your ID is {user_id}")
 
 
@@ -41,7 +41,7 @@ class Owner(object):
         """
         self.bot = bot
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def shutdown(self, context):
         context = GeneralContext(context=context)
         if context.user.id == config.get("bot", "owner_id"):
@@ -55,7 +55,7 @@ class Owner(object):
             response = "Don't tell me what to do."
             await self.bot.say(context.channel, message)
 
-    @commands.command(pass_context=True)
+    @commands.command()
     async def reconfig(self, context):
         async def read_config(context):
             settings.read_config(self.bot.file_config)

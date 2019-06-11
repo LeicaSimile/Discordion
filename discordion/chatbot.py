@@ -39,16 +39,9 @@ class Bot(object):
         self.set_events()
         self.set_commands()
         self.client.run(config.get("bot", "token"))
-    
-    def event_member_join(self):
-        """Define on_member_join to react to a member joining the server."""
-        async def on_member_join(member):
-            pass
-
-        return on_member_join
 
     def event_ready(self):
-        """Override on_ready to """
+        """Override on_ready"""
         async def on_ready():
             prefix = config.get("bot", "prefix")
             self.logger.info(f"{self.client.user.name} is now online.")
@@ -121,7 +114,7 @@ class Bot(object):
             
         try:
             ## Server variables
-            substitutions[ph_server] = context.server.name
+            substitutions[ph_server] = context.guild.name
         except AttributeError:
             substitutions[ph_server] = ""
 
@@ -136,19 +129,14 @@ class Bot(object):
 
     async def say(self, destination, message, context=None):
         message = self.parse(message, context)
-        await self.client.send_message(destination, message)
+        await self.client.send(destination, message)
     
     def set_commands(self, *cmds):
-        if not cmds:
-            self.client.add_cog(commands.General(self))
-            self.client.add_cog(commands.Owner(self))
-        else:
-            for c in cmds:
-                self.client.add_cog(c)
+        for c in cmds:
+            self.client.add_cog(c)
         
     def set_events(self, *events):
         self.client.event(self.event_ready())
-        self.client.event(self.event_member_join())
 
         for e in events:
             self.client.event(e)

@@ -22,10 +22,7 @@ class GeneralContext(context.Context):
     def __init__(self, **attrs):
         attrs["prefix"] = settings.config.get("bot", "prefix")
         super().__init__(**attrs)
-        self.channel = attrs.pop("channel", None)
         self.context = attrs.pop("context", None)
-        self.server = attrs.pop("server", None)
-        self.user = attrs.pop("user", None)
         self.argument = ""
 
         self._extract_message()
@@ -33,8 +30,6 @@ class GeneralContext(context.Context):
     def _extract_message(self):
         """Assigns some of the message variables to this class's variables."""
         if self.context:
-            self.message = self.context.message
-            self.bot = self.context.bot
             self.args = self.context.args
             self.kwargs = self.context.kwargs
             self.prefix = self.context.prefix
@@ -47,9 +42,3 @@ class GeneralContext(context.Context):
             split_message = self.message.content.split(self.invoked_with, 1)
             if self.invoked_with and len(split_message) > 1:
                 self.argument = split_message[1].lstrip()
-            
-        if self.message:
-            self.channel = self.message.channel if not self.channel else self.channel
-            self.server = self.message.server if not self.server else self.server
-            self.user = self.message.author if not self.user else self.user
-
