@@ -32,7 +32,7 @@ class Bot(object):
         help_command = config.get("bot", "help_command")
         description = config.get("bot", "description")
 
-        self.client = discord.ext.commands.Bot(command_prefix=command_prefix, help_command=help_command, description, **options)
+        self.client = discord.ext.commands.Bot(command_prefix=command_prefix, help_command=help_command, description=description, **options)
         self.db_manual = sqlitehouse.Database(config.get("files", "database_manual"))
         self.db_auto = sqlitehouse.Database(config.get("files", "database_auto"))
 
