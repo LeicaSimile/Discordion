@@ -128,8 +128,8 @@ class Bot(object):
         return text
 
     async def say(self, message, context=None):
-        message = self.parse(message, context)
-        await self.message.channel.send(content=message)
+        msg = self.parse(message, context)
+        await message.channel.send(content=msg)
     
     def set_commands(self, *cmds):
         for c in cmds:
