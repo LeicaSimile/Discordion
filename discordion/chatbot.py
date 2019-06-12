@@ -80,7 +80,7 @@ class Bot(object):
 
         """
         if not substitutions: substitutions = {}
-        text = phrases.parse_all(text)
+        text = pyliner.parse_all(text)
 
         ph_bot_name = config.get("placeholders", "bot_name")
         ph_bot_display = config.get("placeholders", "bot_display")
