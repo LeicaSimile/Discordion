@@ -8,7 +8,7 @@ setup(name="discordion",
       author_email="leicasimile@gmail.com",
       url="https://github.com/LeicaSimile/discordion",
       install_requires=[
-          "pyliner==1.0",
+          "pyliner==1.1",
           "sqlitehouse==1.2",
           ],
       packages=["discordion"],
