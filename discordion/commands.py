@@ -25,7 +25,7 @@ class General(object):
     async def getid(self, context):
         user_id = context.author.id
         user_name = context.author.mention        
-        await self.bot.say(f"{user_name}, your ID is {user_id}")
+        await self.bot.say(context.channel, f"{user_name}, your ID is {user_id}")
 
 
 class Owner(object):
@@ -44,13 +44,13 @@ class Owner(object):
         async def log_out(context):
             try:
                 response = self.bot.get_phrase(database.Category.SHUTDOWN.value)
-                await self.bot.say(response, context)
+                await self.bot.say(context.channel, response, context)
             finally:
                 await self.bot.client.logout()
 
         async def sass(context):
             response = "Don't tell me what to do."
-            await self.bot.say(response)
+            await self.bot.say(context.channel, response)
 
         await self.validate_owner(context, log_out, sass)
 
@@ -58,7 +58,7 @@ class Owner(object):
     async def reconfig(self, context):
         async def read_config(context):
             settings.read_config(self.bot.file_config)
-            await self.bot.say("Settings updated.")
+            await self.bot.say(context.channel, "Settings updated.")
 
         await self.validate_owner(context, read_config)
 
@@ -83,5 +83,5 @@ class Owner(object):
                 await function_fail(context)
             except TypeError:
                 response = "Don't tell me what to do."
-                await self.bot.say(response)
+                await self.bot.say(context.channel, response)
     
