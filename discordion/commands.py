@@ -23,11 +23,9 @@ class General(object):
 
     @commands.command(description="Tells you your user ID.")
     async def getid(self, context):
-        user_id = context.message.author.id
-        user_name = context.message.author.mention
-        
-        await self.bot.client.send(context.message.channel,
-                                           f"{user_name}, your ID is {user_id}")
+        user_id = context.author.id
+        user_name = context.author.mention        
+        await self.bot.say(f"{user_name}, your ID is {user_id}")
 
 
 class Owner(object):
@@ -43,23 +41,24 @@ class Owner(object):
 
     @commands.command()
     async def shutdown(self, context):
-        context = GeneralContext(context=context)
-        if context.user.id == config.get("bot", "owner_id"):
+        async def log_out(context):
             try:
                 response = self.bot.get_phrase(database.Category.SHUTDOWN.value)
-                
-                await self.bot.say(context.channel, response, context)
+                await self.bot.say(response, context)
             finally:
                 await self.bot.client.logout()
-        else:
+
+        async def sass(context):
             response = "Don't tell me what to do."
-            await self.bot.say(context.channel, message)
+            await self.bot.say(response)
+
+        await self.validate_owner(context, log_out, sass)
 
     @commands.command()
     async def reconfig(self, context):
         async def read_config(context):
             settings.read_config(self.bot.file_config)
-            await self.bot.say(context.channel, "Settings updated.")
+            await self.bot.say("Settings updated.")
 
         await self.validate_owner(context, read_config)
 
@@ -77,13 +76,12 @@ class Owner(object):
                 warning to the user.
 
         """
-        context = GeneralContext(context=context)
-        if context.user.id == config.get("bot", "owner_id"):
+        if context.author.id == config.get("bot", "owner_id"):
             await function_pass(context)
         else:
             try:
                 await function_fail(context)
             except TypeError:
                 response = "Don't tell me what to do."
-                await self.bot.say(context.channel, message)
+                await self.bot.say(response)
     

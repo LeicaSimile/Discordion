@@ -49,7 +49,7 @@ class Bot(object):
             self.logger.info(f"Command prefix: {prefix}")
 
             status = config.get("bot", "status")
-            await self.client.change_presence(game=discord.Game(name=status))
+            await self.client.change_presence(activity=discord.Game(name=status))
 
         return on_ready
 
@@ -127,9 +127,9 @@ class Bot(object):
         
         return text
 
-    async def say(self, destination, message, context=None):
+    async def say(self, message, context=None):
         message = self.parse(message, context)
-        await self.client.send(destination, message)
+        await self.message.channel.send(content=message)
     
     def set_commands(self, *cmds):
         for c in cmds:

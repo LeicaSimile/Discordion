@@ -3,7 +3,7 @@
 __title__ = "discordion"
 __author__ = "Angelica Catalan"
 __license__ = "MIT"
-__version__ = "0.1.17"
+__version__ = "0.1.18"
 
 from .chatbot import Bot
 from .context import GeneralContext
