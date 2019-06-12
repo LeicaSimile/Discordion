@@ -4,7 +4,7 @@ import logging
 
 import discord
 import discord.ext.commands
-import pyliner
+from pyliner import pyliner
 import sqlitehouse
 
 from .context import GeneralContext
